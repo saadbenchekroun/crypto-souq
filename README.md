@@ -136,35 +136,39 @@ CryptoSouq follows a modern full-stack architecture:
 - IPFS account (Infura or Pinata)
 
 ### Installation
+Follow these steps to set up the project locally:
 
-1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/your-username/crypto-souq.git
+1. **Clone the repository:**
+   ```
+   git clone https://github.com/saadbenchekroun/crypto-souq.git
    cd crypto-souq
-   \`\`\`
+   ```
 
-2. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
+2. **Install dependencies:**
+   ```
+   pnpm install
+   ```
 
-3. Set up environment variables:
-   \`\`\`bash
+3. **Configure environment variables:**
+   ```
    cp .env.example .env.local
-   \`\`\`
-   Edit `.env.local` with your configuration.
+   ```
+   Then open `.env.local` and update the values as needed.
 
-4. Set up the database:
-   \`\`\`bash
+4. **Set up the database:**
+   ```
    npx prisma migrate dev
-   \`\`\`
+   ```
 
-5. Run the development server:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+5. **Start the development server:**
+   ```bash
+   pnpm dev
+   ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. **Open your browser:**
+
+   Visit [http://localhost:3000](http://localhost:3000)
+
 
 ## Environment Variables
 
