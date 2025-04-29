@@ -1,0 +1,73 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  email         String    @unique
+  passwordHash  String
+  name          String?
+  walletAddress String?   @unique
+  role          Role      @default(USER)
+  tokens        Token[]
+  nfts          NFT[]
+  dapps         DApp[]
+}
+
+model Token {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  name           String
+  symbol         String
+  decimals       Int      @default(18)
+  totalSupply    String
+  contractAddress String  @unique
+  network        String
+  owner          User     @relation(fields: [ownerId], references: [id])
+  ownerId        String
+  type           String   // ERC20, BEP20, etc.
+}
+
+model NFT {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  name           String
+  description    String?
+  image          String   // IPFS URL
+  contractAddress String  @unique
+  tokenId        String
+  metadata       String   // IPFS URL
+  owner          User     @relation(fields: [ownerId], references: [id])
+  ownerId        String
+  network        String
+  attributes     Json?
+}
+
+model DApp {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  name           String
+  description    String?
+  type           String   // DeFi, NFT Marketplace, etc.
+  contractAddress String  @unique
+  frontendUrl    String?
+  owner          User     @relation(fields: [ownerId], references: [id])
+  ownerId        String
+  network        String
+  analytics      Json?    // Store analytics data
+}
+
+enum Role {
+  USER
+  ADMIN
+}
